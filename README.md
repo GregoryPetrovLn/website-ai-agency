@@ -70,7 +70,7 @@ No external framework is required to run this version.
 
 ## Screenshots
 
-Replace these placeholders with final mockups:
+Final mockups:
 
 ![Screenshot 1](screenshots/1.png)
 ![Screenshot 2](screenshots/2.png)
