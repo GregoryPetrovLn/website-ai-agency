@@ -384,16 +384,32 @@
     .approach { text-align: center; }
 
     .approach__lead {
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto 64px;
+    }
+
+    .approach .section-title {
+      font-size: clamp(44px, 6vw, 76px);
     }
 
     .approach__body {
       font-family: 'Barlow', sans-serif;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 300;
       color: var(--white-75);
       line-height: 1.72;
+    }
+
+    /* ─── WORD REVEAL ────────────────────────────────────── */
+    .word-reveal-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .word-reveal-word.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .approach__steps {
@@ -482,17 +498,19 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #0d0d0d;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
     }
 
-    .work-card__image span {
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.14);
-      text-transform: uppercase;
+    .work-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .work-card:hover .work-card__image img {
+      transform: scale(1.04);
     }
 
     .work-card__info {
@@ -525,11 +543,73 @@
     /* ═══════════════════════════════════════════════════════
        WHAT WE DO
     ═══════════════════════════════════════════════════════ */
+    .section--elevated {
+      position: relative;
+      z-index: 2;
+      overflow: visible;
+      background: #000;
+    }
+
+    .section--elevated::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 68%;
+      height: clamp(320px, 44vw, 620px);
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.52) 15%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.04) 46%, rgba(0,0,0,0) 62%),
+        linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0) 46%),
+        url('public/separate.png') center center / cover no-repeat;
+      opacity: 0.88;
+      filter: drop-shadow(0 -56px 112px rgba(0,0,0,0.72)) drop-shadow(0 18px 46px rgba(0,0,0,0.26));
+    }
+
+    .section--elevated .section__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .banner-img {
+      position: relative;
+      z-index: 1;
+      margin-top: -110px;
+      margin-bottom: 10px;
+      line-height: 0;
+      font-size: 0;
+      overflow: hidden;
+      display: none;
+    }
+
+    .banner-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.12) 20%, rgba(0,0,0,0) 34%),
+        linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0) 34%);
+    }
+
+    .banner-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 520px;
+      box-shadow:
+        0 -44px 100px rgba(0,0,0,0.62),
+        0 44px 100px rgba(0,0,0,0.62),
+        0 0 120px rgba(0,0,0,0.34);
+    }
+
     .services__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       overflow: hidden;
@@ -537,29 +617,51 @@
     }
 
     .service-card {
-      background: #000;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 48px 44px;
-      transition: background 0.25s ease;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
     }
-    .service-card:hover { background: rgba(255,255,255,0.02); }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.4) 0%,
+        rgba(255,255,255,0.1) 30%,
+        rgba(255,255,255,0) 50%,
+        rgba(255,255,255,0.1) 70%,
+        rgba(255,255,255,0.4) 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      background: rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    }
 
     .service-card__icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      overflow: hidden;
       margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .service-card__icon span {
-      font-size: 9px;
-      color: rgba(255,255,255,0.18);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .service-card__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .service-card__title {
@@ -580,6 +682,11 @@
        TESTIMONIALS
     ═══════════════════════════════════════════════════════ */
     .testimonials { text-align: center; }
+    .testimonials.section {
+      position: relative;
+      z-index: 4;
+      background: transparent;
+    }
 
     .testimonial-stage {
       max-width: 720px;
@@ -790,6 +897,16 @@
       .approach__steps { grid-template-columns: 1fr; }
       .work__grid { grid-template-columns: 1fr; }
       .services__grid { grid-template-columns: 1fr; }
+      .section--elevated::before {
+        top: 72%;
+        height: clamp(240px, 62vw, 360px);
+        background:
+          linear-gradient(to bottom, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.44) 18%, rgba(0,0,0,0.16) 34%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0) 64%),
+          linear-gradient(to top, rgba(0,0,0,0.46) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0) 48%),
+          url('public/separate.png') center center / cover no-repeat;
+      }
+      .banner-img { margin-top: -56px; margin-bottom: 0; }
+      .banner-img img { max-height: 300px; }
       .work__header { flex-direction: column; align-items: flex-start; gap: 12px; }
       .footer { padding: 36px 24px; }
       .footer__inner { flex-direction: column; align-items: flex-start; }
@@ -854,8 +971,8 @@
       <h2 class="section-title reveal" style="--delay:0.1s">
         We blend <em>AI precision</em><br>with human craft
       </h2>
-      <p class="approach__body reveal" style="--delay:0.2s">
-        Every project starts with a deep understanding of your brand, goals, and users. We use AI to accelerate without compromise — so you get a world-class website in a fraction of the time, with none of the shortcuts.
+      <p class="approach__body" data-word-reveal>
+        Every project starts with a deep understanding of your brand, goals, and users. We use AI to accelerate without compromise — so you get a world-class website in a fraction of the time, with none of the shortcuts and all of the craft.
       </p>
     </div>
     <div class="approach__steps">
@@ -896,9 +1013,11 @@
     </div>
     <div class="work__grid">
       <div class="work-card reveal" style="--delay:0.05s">
-        <div class="work-card__image"><span>Video placeholder</span></div>
+        <div class="work-card__image">
+          <img src="https://motionsites.ai/assets/hero-grow-ai-preview-BlQ8tAQ-.gif" alt="Grow AI" />
+        </div>
         <div class="work-card__info">
-          <span class="work-card__title">Vega Capital</span>
+          <span class="work-card__title">Grow AI</span>
           <div class="work-card__meta">
             <span class="work-card__category">AI Web Design</span>
             <span class="work-card__year">2025</span>
@@ -906,9 +1025,11 @@
         </div>
       </div>
       <div class="work-card reveal" style="--delay:0.15s">
-        <div class="work-card__image"><span>Video placeholder</span></div>
+        <div class="work-card__image">
+          <img src="https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif" alt="Space Voyage" />
+        </div>
         <div class="work-card__info">
-          <span class="work-card__title">Orion Health</span>
+          <span class="work-card__title">Space Voyage</span>
           <div class="work-card__meta">
             <span class="work-card__category">Brand + Web</span>
             <span class="work-card__year">2025</span>
@@ -916,9 +1037,11 @@
         </div>
       </div>
       <div class="work-card reveal" style="--delay:0.1s">
-        <div class="work-card__image"><span>Video placeholder</span></div>
+        <div class="work-card__image">
+          <img src="https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif" alt="XPortfolio" />
+        </div>
         <div class="work-card__info">
-          <span class="work-card__title">Lumen SaaS</span>
+          <span class="work-card__title">XPortfolio</span>
           <div class="work-card__meta">
             <span class="work-card__category">Web Development</span>
             <span class="work-card__year">2024</span>
@@ -926,9 +1049,11 @@
         </div>
       </div>
       <div class="work-card reveal" style="--delay:0.2s">
-        <div class="work-card__image"><span>Video placeholder</span></div>
+        <div class="work-card__image">
+          <img src="https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif" alt="EVR Ventures" />
+        </div>
         <div class="work-card__info">
-          <span class="work-card__title">Prism Studio</span>
+          <span class="work-card__title">EVR Ventures</span>
           <div class="work-card__meta">
             <span class="work-card__category">Optimisation</span>
             <span class="work-card__year">2024</span>
@@ -944,7 +1069,7 @@
 <!-- ══════════════════════════════════════════════════════
      WHAT WE DO
 ══════════════════════════════════════════════════════ -->
-<section class="section">
+<section class="section section--elevated">
   <div class="section__inner">
     <span class="section-label reveal">What We Do</span>
     <h2 class="section-title reveal" style="--delay:0.1s">
@@ -952,28 +1077,35 @@
     </h2>
     <div class="services__grid">
       <div class="service-card reveal" style="--delay:0.05s">
-        <div class="service-card__icon"><span>icon</span></div>
+        <div class="service-card__icon"><img src="public/1.png" alt="Brand Design" /></div>
         <h3 class="service-card__title">Brand Design</h3>
         <p class="service-card__text">Visual identity systems built for the digital age — logos, type, colour, and motion that make your brand unmistakable in any context.</p>
       </div>
       <div class="service-card reveal" style="--delay:0.15s">
-        <div class="service-card__icon"><span>icon</span></div>
+        <div class="service-card__icon"><img src="public/2.png" alt="AI Web Design" /></div>
         <h3 class="service-card__title">AI Web Design</h3>
         <p class="service-card__text">We harness the latest generative design tools to craft interfaces that are visually stunning, deeply considered, and built to convert visitors into customers.</p>
       </div>
       <div class="service-card reveal" style="--delay:0.1s">
-        <div class="service-card__icon"><span>icon</span></div>
+        <div class="service-card__icon"><img src="public/3.png" alt="AI Web Development" /></div>
         <h3 class="service-card__title">AI Web Development</h3>
         <p class="service-card__text">Lightning-fast, accessible, and pixel-perfect builds — powered by AI-assisted workflows that ship faster without cutting corners on quality or performance.</p>
       </div>
       <div class="service-card reveal" style="--delay:0.2s">
-        <div class="service-card__icon"><span>icon</span></div>
+        <div class="service-card__icon"><img src="public/4.png" alt="Website Optimisation" /></div>
         <h3 class="service-card__title">Website Optimisation</h3>
         <p class="service-card__text">CRO audits, performance tuning, and data-driven redesigns that transform your existing site into a measurable growth engine.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ══════════════════════════════════════════════════════
+     BANNER IMAGE
+══════════════════════════════════════════════════════ -->
+<div class="banner-img">
+  <img src="public/separate.png" alt="" />
+</div>
 
 <div class="section-divider"></div>
 
@@ -1040,6 +1172,25 @@
 </footer>
 
 <script>
+  // ── Word reveal ───────────────────────────────────────
+  document.querySelectorAll('[data-word-reveal]').forEach(el => {
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map((w, i) =>
+      `<span class="word-reveal-word" style="transition-delay:${(i * 0.035).toFixed(3)}s">${w}</span>`
+    ).join(' ');
+
+    const wordObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.word-reveal-word').forEach(w => w.classList.add('revealed'));
+          wordObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    wordObserver.observe(el);
+  });
+
   // ── Scroll reveal ──────────────────────────────────────
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
