@@ -29,7 +29,7 @@
     /* ─── VIDEO BG ─────────────────────────────────────── */
     .hero {
       position: relative;
-      width: 100vw;
+      width: 100%;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -155,6 +155,8 @@
       align-items: center;
       justify-content: flex-start;
       padding-top: 112px;
+      padding-left: 24px;
+      padding-right: 24px;
       text-align: center;
     }
 
@@ -903,10 +905,113 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 768px) {
-      .section { padding: 64px 24px; }
+      .nav {
+        padding: 20px 20px;
+      }
+      .nav__links {
+        display: none;
+      }
+      .nav__logo {
+        font-size: 16px;
+      }
+      .nav__cta {
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        padding-bottom: 0;
+      }
+      .hero__body {
+        padding-top: 72px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .avatar-row {
+        gap: 8px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .avatar-label {
+        font-size: 12px;
+      }
+      .headline {
+        margin-bottom: 16px;
+      }
+      .headline__word,
+      .headline__accent {
+        font-size: clamp(36px, 12vw, 52px);
+      }
+      .subhead {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 26px;
+      }
+      .email-form {
+        border-radius: 20px;
+        padding: 10px;
+        max-width: 520px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .email-form::before {
+        border-radius: 20px;
+      }
+      .email-input {
+        width: 100%;
+        min-height: 42px;
+        padding: 0 12px;
+      }
+      .email-btn {
+        width: 100%;
+        padding: 12px 20px;
+      }
+
+      .section { padding: 56px 20px; }
+      .section-title {
+        font-size: clamp(30px, 9vw, 42px);
+      }
+      .approach__lead {
+        margin-bottom: 36px;
+      }
+      .approach .section-title {
+        font-size: clamp(36px, 10vw, 48px);
+      }
+      .approach__body {
+        font-size: 16px;
+        line-height: 1.65;
+      }
       .approach__steps { grid-template-columns: 1fr; }
+      .approach__step {
+        padding: 28px 22px;
+      }
+
+      .work__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
       .work__grid { grid-template-columns: 1fr; }
+      .work-card__info {
+        padding: 14px 16px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .work-card__meta {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
       .services__grid { grid-template-columns: 1fr; }
+      .service-card {
+        padding: 28px 22px;
+      }
+
       .section--elevated::before {
         top: 72%;
         height: clamp(240px, 62vw, 360px);
@@ -917,9 +1022,69 @@
       }
       .banner-img { margin-top: -56px; margin-bottom: 0; }
       .banner-img img { max-height: 300px; }
-      .work__header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .testimonial-stage {
+        margin-top: 40px;
+      }
+      .testimonial-quote {
+        min-height: 0;
+        margin-bottom: 28px;
+      }
+      .cta {
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
+      .cta__sub {
+        margin-bottom: 32px;
+        font-size: 15px;
+      }
+      .cta__btn {
+        width: 100%;
+        max-width: 320px;
+      }
       .footer { padding: 36px 24px; }
       .footer__inner { flex-direction: column; align-items: flex-start; }
+      .footer__links {
+        flex-wrap: wrap;
+        gap: 14px 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav {
+        padding: 16px 14px;
+      }
+      .nav__cta {
+        padding: 7px 12px;
+        font-size: 11px;
+      }
+      .hero__body {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+      .headline__word,
+      .headline__accent {
+        font-size: clamp(30px, 11.2vw, 40px);
+      }
+      .subhead {
+        font-size: 14px;
+      }
+      .section {
+        padding: 48px 14px;
+      }
+      .work-card__category,
+      .work-card__year {
+        font-size: 11px;
+      }
+      .testimonial-nav {
+        gap: 10px;
+      }
+      .testimonial-arrow {
+        width: 36px;
+        height: 36px;
+      }
+      .footer {
+        padding: 30px 14px;
+      }
     }
   </style>
 </head>
